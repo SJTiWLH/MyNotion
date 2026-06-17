@@ -1,0 +1,41 @@
+
+
+## **上传Python项目到github，的依赖项的操作**
+
+- 存入.gitignore文件，用于排除上传文件。后附文件内容。
+- 在终端操作，将当前依赖项写入txt文件。
+
+```python
+pip freeze > requirements.txt
+```
+
+**上传项目时，需要将 .gitignore 文件和 requirements.txt 文件一并提交到 GitHub。无需上传 venv 文件夹的内容。**
+
+- 在终端操作，新服务器拉取项目后，创建虚拟环境
+
+```python
+py -m venv venv
+```
+
+- 在终端操作，激活虚拟环境
+
+```python
+./venv/Scripts/activate
+```
+
+- 在终端操作，将txt文件中的依赖项导出
+
+```python
+pip install -r requirements.txt -i <https://mirrors.aliyun.com/pypi/simple/>
+# -i 镜像网址  是使用临时镜像进行下载
+```
+
+## 常用镜像
+
+```python
+1.	阿里云：<https://mirrors.aliyun.com/pypi/simple/>
+2.	清华大学：<https://pypi.tuna.tsinghua.edu.cn/simple/>
+3.	中国科技大学：<https://pypi.mirrors.ustc.edu.cn/simple/>
+
+```
+

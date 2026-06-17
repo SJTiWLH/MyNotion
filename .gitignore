@@ -1,0 +1,15 @@
+# Obsidian 本地缓存文件夹
+.obsidian/
+
+# Node依赖（体积巨大，禁止上传）
+node_modules/
+
+# Hexo/静态站点打包产物（如果你后续生成网页）
+public/
+.deploy_git/
+db.json
+
+# 日志、临时文件
+*.log
+.DS_Store
+Thumbs.db
