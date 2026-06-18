@@ -1,1 +1,0 @@
-import{_ as i,o as a,c as e,a4 as r}from"./chunks/framework.BhEBm8_q.js";const u=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"新增一下内容的必填项.md","filePath":"新增一下内容的必填项.md"}'),t={name:"新增一下内容的必填项.md"};function n(o,l,s,h,_,d){return a(),e("div",null,[...l[0]||(l[0]=[r("",14)])])}const m=i(t,[["render",n]]);export{u as __pageData,m as default};
