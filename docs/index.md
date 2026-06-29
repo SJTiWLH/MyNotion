@@ -11,8 +11,8 @@ hero:
       text: Python版本管理
       link: /Python版本管理
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 联系我-微信
+      link: /联系我-微信.md
 
 features:
   - title: 收纳所有碎片化思考
@@ -23,5 +23,8 @@ features:
     details: 不拿琐事博取共鸣，记录只为理清自己，顺带给同频人一点参考
   - title: 循序渐进自我完善
     details: 不追求一夜蜕变，记录微小改变，承认成长是缓慢且反复的过程
+
+  
 ---
+
 

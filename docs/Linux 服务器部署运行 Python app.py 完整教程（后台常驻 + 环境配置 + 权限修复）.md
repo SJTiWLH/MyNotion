@@ -1,3 +1,13 @@
+---
+title: Linux部署python项目
+# 侧边栏短标题（可选）
+sidebar_label: 打印机共享
+# 排序
+order: 1
+# 标签
+tags: [Linux,python]
+---
+
 
 本文适用于 **Termius 远程连接 Linux 服务器**，解决 Python 环境搭建、代码格式报错、权限不足、关闭终端程序停止运行等问题，实现 `app.py` 永久后台常驻运行。
 
