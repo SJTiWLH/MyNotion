@@ -5,7 +5,6 @@
 node_modules/
 
 # Hexo/静态站点打包产物（如果你后续生成网页）
-public/
 .deploy_git/
 db.json
 

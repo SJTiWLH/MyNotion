@@ -1,3 +1,10 @@
+---
+title: Linux服务器网络排查复盘
+# 标签
+tags: [服务器,局域网]
+coverImg: docs\.vitepress\images\卡布达(1).jpg
+---
+
 
 ## 一、本次故障复盘
 

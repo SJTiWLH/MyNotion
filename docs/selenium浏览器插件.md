@@ -1,4 +1,9 @@
-
+---
+title: selenium启动浏览器携带插件
+# 标签
+tags: [selenium,插件]
+coverImg: docs\.vitepress\images\卡布达(1).jpg
+---
 
 # selenium带上浏览器插件启动浏览器
 

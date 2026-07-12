@@ -1,4 +1,9 @@
-
+---
+title: selenium多线程存在的驱动问题
+# 标签
+tags: [selenium,多线程]
+coverImg: docs\.vitepress\images\卡布达(1).jpg
+---
 
 # 多线程浏览器驱动问题：
 
