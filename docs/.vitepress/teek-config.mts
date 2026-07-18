@@ -19,12 +19,12 @@ export const teekConfig = defineTeekConfig({
     imgInterval: 15000, // 当多张图片时（imgSrc 为数组），设置切换时间，单位：毫秒
     imgShuffle: false, // 图片是否随机切换，为 false 时按顺序切换，bgStyle 为 partImg 或 fullImg 时生效
     imgWaves: true, // 是否开启 Banner 图片波浪纹，bgStyle 为 fullImg 时生效
-    mask: false, // Banner 图片遮罩，bgStyle 为 partImg 或 fullImg 时生效
+    mask: true, // Banner 图片遮罩，bgStyle 为 partImg 或 fullImg 时生效
     maskBg: "rgba(24, 24, 24, 0.4)", // Banner 遮罩颜色，如果为数字，则是 rgba(0, 0, 0, ${maskBg})，如果为字符串，则作为背景色。bgStyle 为 partImg 或 fullImg 且 mask 为 true 时生效
-    textColor: "#0c0c0c", // Banner 字体颜色，bgStyle 为 pure 时为 '#000000'，其他为 '#ffffff'
+    textColor: "#ffffff", // Banner 字体颜色，bgStyle 为 pure 时为 '#000000'，其他为 '#ffffff'
     titleFontSize: "4.2rem", // 标题字体大小
     descFontSize: "1.4rem", // 描述字体大小
-    descStyle: "switch", // 描述信息风格：default 为纯文字渲染风格（如果 description 为数组，则取第一个），types 为文字打印风格，switch 为文字切换风格
+    descStyle: "types", // 描述信息风格：default 为纯文字渲染风格（如果 description 为数组，则取第一个），types 为文字打印风格，switch 为文字切换风格
     description: [ "把事情做成良性发展的模样，剩下的交给时间。","速胜派是最大的投降派 ——《论持久战》","天下英雄如云，我周公瑾能胜者十之八九 ——周瑜"], // 描述信息
     switchTime: 4000, // 描述信息切换间隔时间，单位：毫秒。descStyle 为 switch 时生效
     switchShuffle: false, // 描述信息是否随机切换，为 false 时按顺序切换。descStyle 为 switch 时生效

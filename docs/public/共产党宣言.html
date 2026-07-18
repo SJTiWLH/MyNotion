@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>《共产党宣言》知识体系报告</title>
+    <style>
+        /* ===== 全局重置 & 基础 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f2eb;
+            font-family: 'Georgia', 'Times New Roman', '宋体', serif;
+            color: #1e1e1e;
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .report-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+            border-radius: 18px;
+            padding: 60px 70px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .report-container {
+                padding: 30px 20px;
+            }
+            body {
+                padding: 16px 10px;
+            }
+        }
+
+        /* ===== 封面 / 标题区 ===== */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #c0392b;
+            padding-bottom: 28px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #c0392b;
+            border-radius: 2px;
+        }
+
+        .header .subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .header h1 small {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #5d4037;
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 6px;
+        }
+
+        .header .meta {
+            margin-top: 16px;
+            font-size: 0.95rem;
+            color: #5d6d7e;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .header .meta span {
+            background: #f0ede8;
+            padding: 4px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+        }
+
+        /* ===== 摘要 ===== */
+        .abstract {
+            background: #f8f6f2;
+            padding: 28px 34px;
+            border-radius: 14px;
+            border-left: 6px solid #c0392b;
+            margin-bottom: 44px;
+            font-size: 1.05rem;
+            color: #2c3e50;
+        }
+
+        .abstract strong {
+            color: #a93226;
+        }
+
+        /* ===== 目录 ===== */
+        .toc {
+            background: #faf9f7;
+            padding: 24px 34px;
+            border-radius: 14px;
+            margin-bottom: 48px;
+            border: 1px solid #e8e3db;
+        }
+
+        .toc h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #2c3e50;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc h3::before {
+            content: '📖';
+            font-size: 1.4rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 6px 20px;
+        }
+
+        .toc-grid a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 0.98rem;
+            padding: 4px 0;
+            border-bottom: 1px dashed transparent;
+            transition: border-color 0.2s, color 0.2s;
+            display: inline-block;
+        }
+
+        .toc-grid a:hover {
+            color: #a93226;
+            border-bottom-color: #a93226;
+        }
+
+        /* ===== 章节通用 ===== */
+        .section {
+            margin-bottom: 52px;
+        }
+
+        .section-number {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #a93226;
+            letter-spacing: 2px;
+            background: #f0ede8;
+            padding: 2px 16px;
+            border-radius: 30px;
+            margin-bottom: 8px;
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e0d8cf;
+            padding-bottom: 12px;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 32px;
+            margin-bottom: 14px;
+            padding-left: 4px;
+        }
+
+        .section h4 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #3d4f5f;
+            margin-top: 24px;
+            margin-bottom: 10px;
+            padding-left: 8px;
+            border-left: 4px solid #c0392b;
+            padding-left: 14px;
+        }
+
+        .section p {
+            margin-bottom: 16px;
+            text-align: justify;
+            font-size: 1.02rem;
+        }
+
+        .section ul,
+        .section ol {
+            margin: 12px 0 20px 28px;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            font-size: 1.02rem;
+        }
+
+        /* ===== 卡片 / 引用块 ===== */
+        .quote-block {
+            background: #f4f1eb;
+            padding: 20px 28px;
+            border-radius: 12px;
+            margin: 20px 0 28px 0;
+            border-left: 6px solid #7f8c8d;
+            font-style: italic;
+            color: #2c3e50;
+        }
+
+        .quote-block .source {
+            display: block;
+            text-align: right;
+            font-style: normal;
+            font-size: 0.92rem;
+            color: #5d6d7e;
+            margin-top: 8px;
+        }
+
+        .highlight-box {
+            background: #eaf2f8;
+            padding: 18px 24px;
+            border-radius: 12px;
+            margin: 18px 0 24px 0;
+            border: 1px solid #d4e2ed;
+        }
+
+        .highlight-box strong {
+            color: #1a5276;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 18px;
+            margin: 20px 0 28px 0;
+        }
+
+        .concept-card {
+            background: #faf9f7;
+            border-radius: 12px;
+            padding: 18px 22px;
+            border: 1px solid #e8e3db;
+            transition: box-shadow 0.2s;
+        }
+
+        .concept-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .concept-card .term {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .concept-card .term small {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-left: 8px;
+        }
+
+        .concept-card .def {
+            font-size: 0.98rem;
+            color: #2c3e50;
+        }
+
+        /* ===== 措施列表 ===== */
+        .measure-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 30px;
+            background: #f8f6f2;
+            padding: 20px 28px;
+            border-radius: 14px;
+            margin: 16px 0 24px 0;
+        }
+
+        @media (max-width: 600px) {
+            .measure-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .measure-list li {
+            list-style: decimal;
+            font-size: 0.98rem;
+            padding: 4px 0;
+            border-bottom: 1px dashed #e0d8cf;
+        }
+
+        .measure-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== 两栏布局 ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0 28px 0;
+        }
+
+        @media (max-width: 700px) {
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        .two-col .col {
+            background: #faf9f7;
+            padding: 20px 24px;
+            border-radius: 14px;
+            border: 1px solid #e8e3db;
+        }
+
+        .two-col .col h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #e0d8cf;
+            padding-bottom: 8px;
+        }
+
+        /* ===== 时间线 ===== */
+        .timeline {
+            margin: 20px 0 28px 0;
+            padding-left: 8px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 18px;
+            align-items: flex-start;
+        }
+
+        .timeline-item .year {
+            font-weight: 700;
+            color: #a93226;
+            min-width: 70px;
+            font-size: 1.05rem;
+        }
+
+        .timeline-item .desc {
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+
+        /* ===== 结语 ===== */
+        .conclusion {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 2px solid #e0d8cf;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .conclusion .sign {
+            margin-top: 12px;
+            font-style: italic;
+            color: #5d6d7e;
+        }
+
+        /* ===== 打印优化 ===== */
+        @media print {
+            body {
+                background: white;
+                padding: 0.2in;
+            }
+            .report-container {
+                box-shadow: none;
+                padding: 20px 30px;
+                border-radius: 0;
+            }
+            .toc {
+                background: #f9f8f6;
+                border: 1px solid #ccc;
+            }
+            .concept-card:hover {
+                box-shadow: none;
+            }
+        }
+
+        /* ===== 辅助 ===== */
+        .text-muted {
+            color: #5d6d7e;
+            font-size: 0.95rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-16 {
+            margin-top: 16px;
+        }
+
+        .mb-16 {
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+        <!-- 返回博客首页 -->
+<div style="margin:16px auto 0;max-width:960px;width:calc(100% - 48px);">
+  <a href="/tools.html" style="
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color:#2b7def;
+    font-size:14px;
+    text-decoration:none;
+    padding:6px 14px;
+    background:rgba(43,125,239,0.08);
+    border-radius:40px;
+    border:1px solid rgba(43,125,239,0.15);
+    transition:0.2s ease;
+  " onmouseover="this.style.background='rgba(43,125,239,0.15)'" onmouseout="this.style.background='rgba(43,125,239,0.08)'">
+    ← 返回工具首页
+  </a>
+</div>
+
+    <div class="report-container">
+
+        <!-- ============================================================ -->
+        <!-- 封面 -->
+        <!-- ============================================================ -->
+        <header class="header">
+            <div class="subtitle">✦ 经典文献 · 知识体系 ✦</div>
+            <h1>
+                共产党宣言
+                <small>Manifest der Kommunistischen Partei</small>
+            </h1>
+            <div class="meta">
+                <span>卡尔·马克思 &amp; 弗里德里希·恩格斯</span>
+                <span>1848 年 2 月</span>
+                <span>伦敦 · 第一次发表</span>
+            </div>
+        </header>
+
+        <!-- ============================================================ -->
+        <!-- 摘要 -->
+        <!-- ============================================================ -->
+        <div class="abstract">
+            <strong>▍ 报告摘要</strong><br />
+            《共产党宣言》是科学共产主义的纲领性文献，系统阐述了<strong>唯物史观</strong>、<strong>阶级斗争理论</strong>和<strong>无产阶级革命学说</strong>。
+            本报告以宣言原文为纲，梳理其核心概念、历史逻辑、阶级分析、革命策略及历史意义，构建一个层次分明的知识体系，
+            旨在呈现这部「改变世界」的经典文献之思想骨架与当代回响。
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 目录 -->
+        <!-- ============================================================ -->
+        <nav class="toc">
+            <h3>目 录</h3>
+            <div class="toc-grid">
+                <a href="#sec-intro">导言 · 幽灵的宣告</a>
+                <a href="#sec-one">一、资产者和无产者</a>
+                <a href="#sec-one-1"> 1.1 阶级斗争简史</a>
+                <a href="#sec-one-2"> 1.2 资产阶级的革命作用</a>
+                <a href="#sec-one-3"> 1.3 无产阶级的诞生与成长</a>
+                <a href="#sec-one-4"> 1.4 历史趋势：两个必然</a>
+                <a href="#sec-two">二、无产者和共产党人</a>
+                <a href="#sec-two-1"> 2.1 共产党的性质与使命</a>
+                <a href="#sec-two-2"> 2.2 消灭私有制</a>
+                <a href="#sec-two-3"> 2.3 驳资产阶级责难</a>
+                <a href="#sec-two-4"> 2.4 革命措施与远景</a>
+                <a href="#sec-conclusion">结语 · 思想的当代意义</a>
+            </div>
+        </nav>
+
+        <!-- ============================================================ -->
+        <!-- 导言 -->
+        <!-- ============================================================ -->
+        <section class="section" id="sec-intro">
+            <span class="section-number">导言</span>
+            <h2>一个幽灵，共产主义的幽灵</h2>
+            <p>
+                <em>「一个幽灵，共产主义的幽灵，在欧洲徘徊。」</em> —— 宣言以极具张力的意象开篇，揭示共产主义已被欧洲一切旧势力视为共同的敌人。
+                共产党人决定向全世界公开说明自己的观点、目的和意图，用宣言对抗关于共产主义幽灵的神话。
+            </p>
+
+            <div class="quote-block">
+                「现在是共产党人向全世界公开说明自己的观点、自己的目的、自己的意图并且拿党自己的宣言来对抗关于共产主义幽灵的神话的时候了。」
+                <span class="source">——《共产党宣言》序言</span>
+            </div>
+
+            <div class="highlight-box">
+                <strong>🔍 核心命题：</strong> 共产主义已被公认为一种势力；共产党人必须公开宣告自己的理论与目标，结束「幽灵」的神秘化。
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 第一部分 -->
+        <!-- ============================================================ -->
+        <section class="section" id="sec-one">
+            <span class="section-number">第一部分</span>
+            <h2>一、资产者和无产者</h2>
+            <p>
+                这一部分是宣言的<strong>历史唯物主义</strong>基石。马克思和恩格斯从「迄今为止一切社会的历史都是阶级斗争的历史」出发，
+                揭示了资产阶级如何在封建社会的母体中诞生、发展并最终取得统治地位，同时锻造了自己的掘墓人——无产阶级。
+            </p>
+
+            <!-- 1.1 -->
+            <h3 id="sec-one-1">1.1 阶级斗争简史：从等级到两大阵营</h3>
+            <p>
+                在古罗马有贵族、骑士、平民、奴隶；在中世纪有封建领主、陪臣、行会师傅、帮工、农奴。
+                现代资产阶级社会并没有消灭阶级对立，它只是用<strong>新的阶级、新的压迫条件、新的斗争形式</strong>代替了旧的。
+                但资产阶级时代有一个特点：<strong>阶级对立简单化了</strong>，整个社会日益分裂为两大直接对立的阶级——<strong>资产阶级和无产阶级</strong>。
+            </p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <span class="term">资产阶级 <small>Bourgeoisie</small></span>
+                    <span class="def">占有生产资料，使用雇佣劳动，以资本增殖为生存目的的阶级。在历史上曾起过非常革命的作用。</span>
+                </div>
+                <div class="concept-card">
+                    <span class="term">无产阶级 <small>Proletariat</small></span>
+                    <span class="def">丧失生产资料，靠出卖劳动力为生的阶级。随着大工业的发展而不断壮大，是真正革命的阶级。</span>
+                </div>
+                <div class="concept-card">
+                    <span class="term">阶级斗争 <small>Klassenkampf</small></span>
+                    <span class="def">压迫者与被压迫者之间不断的、有时隐蔽有时公开的斗争，是历史发展的直接动力。</span>
+                </div>
+                <div class="concept-card">
+                    <span class="term">世界市场 <small>Weltmarkt</small></span>
+                    <span class="def">资产阶级通过大工业和航海业开辟的全球性市场，使一切国家的生产和消费成为世界性的。</span>
+                </div>
+            </div>
+
+            <!-- 1.2 -->
+            <h3 id="sec-one-2">1.2 资产阶级的革命作用</h3>
+            <p>
+                资产阶级在历史上<strong>非常革命</strong>：它斩断了封建羁绊，使人和人之间只剩赤裸裸的利害关系；
+                它把人的尊严变成了交换价值；它开拓了世界市场，使一切民族都卷入文明中来；
+                它创造了比过去一切世代总和还要多的生产力。
+            </p>
+            <div class="quote-block">
+                「资产阶级在它的不到一百年的阶级统治中所创造的生产力，比过去一切世代创造的全部生产力还要多，还要大。」
+                <span class="source">——《共产党宣言》</span>
+            </div>
+            <p>
+                但资产阶级的生存条件就是<strong>不断革命化生产工具</strong>，使一切社会关系不停动荡。
+                它用自由竞争代替了封建制度，却也为自己埋下了周期性<strong>商业危机</strong>的祸根。
+                危机期间，生产力遭到破坏，社会陷入「生产过剩的瘟疫」——这证明<strong>资产阶级的关系已经太狭窄了</strong>，容纳不了它本身造成的财富。
+            </p>
+
+            <!-- 1.3 -->
+            <h3 id="sec-one-3">1.3 无产阶级的诞生与成长</h3>
+            <p>
+                无产阶级是资产阶级的「亲生子」。随着资本的发展，工人沦为机器的附属品，劳动失去任何吸引力。
+                工资不断被压低，工人生活日益没有保障。但正是这种被剥削的处境，使无产阶级<strong>从分散走向团结</strong>。
+            </p>
+
+            <div class="two-col">
+                <div class="col">
+                    <h5>📉 无产阶级的遭遇</h5>
+                    <ul>
+                        <li>劳动变成单纯附属品，操作极其简单</li>
+                        <li>工资降到仅够维持生存的水平</li>
+                        <li>机器使性别、年龄差别失去社会意义</li>
+                        <li>小工业家、手工业者、农民不断跌入无产阶级</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h5>📈 无产阶级的成长</h5>
+                    <ul>
+                        <li>人数增加，结合成更大集体</li>
+                        <li>利益和生活状况趋于一致</li>
+                        <li>从个别斗争走向全国性阶级斗争</li>
+                        <li>建立工会，组织政党，利用资产阶级内部分裂</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p>
+                无产阶级反对资产阶级的斗争，经历了从<strong>个别工人 → 工厂 → 地方 → 全国</strong>的发展过程。
+                交通工具的进步（铁路等）使各地工人迅速团结，<strong>阶级意识</strong>日益觉醒。
+                最终，<strong>一切阶级斗争都是政治斗争</strong>，无产阶级必须通过革命夺取政权。
+            </p>
+
+            <!-- 1.4 -->
+            <h3 id="sec-one-4">1.4 历史趋势：「两个必然」</h3>
+            <div class="highlight-box" style="background: #fdedec; border-color: #c0392b;">
+                <strong>⚡ 两个必然：</strong><br />
+                <span style="font-size:1.1rem;">
+                    「资产阶级的灭亡和无产阶级的胜利是同样不可避免的。」
+                </span>
+                <br /><br />
+                <strong>逻辑链条：</strong>
+                大工业使无产阶级联合 → 资产阶级无意中造成自己的掘墓人 →
+                生产力反抗生产关系 → 资本主义外壳无法容纳自身创造的财富 → 无产阶级革命。
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="year">封建末期</span>
+                    <span class="desc">资产阶级从市民等级中发展起来，借助大工业和世界市场取得统治。</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="year">工业革命</span>
+                    <span class="desc">无产阶级形成，从分散到联合，从经济斗争走向政治斗争。</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="year">革命前夜</span>
+                    <span class="desc">阶级对立尖锐化，资产阶级无法继续统治，无产阶级通过暴力推翻资产阶级。</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="year">未来社会</span>
+                    <span class="desc">无产阶级消灭私有制，消灭阶级对立，实现人的解放。</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 第二部分 -->
+        <!-- ============================================================ -->
+        <section class="section" id="sec-two">
+            <span class="section-number">第二部分</span>
+            <h2>二、无产者和共产党人</h2>
+            <p>
+                这一部分阐明<strong>共产党人</strong>与一般无产者的关系，以及共产党的<strong>理论原则和近期目标</strong>。
+                核心命题是：<strong>消灭私有制</strong>，建立以公有制为基础的新社会。
+            </p>
+
+            <!-- 2.1 -->
+            <h3 id="sec-two-1">2.1 共产党的性质与使命</h3>
+            <p>
+                共产党人不是同其他工人政党相对立的特殊政党。
+                他们<strong>没有同整个无产阶级的利益不同的利益</strong>，不提出任何特殊原则来塑造无产阶级运动。
+            </p>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <span class="term">实践方面</span>
+                    <span class="def">最坚决的、始终推动运动前进的部分。</span>
+                </div>
+                <div class="concept-card">
+                    <span class="term">理论方面</span>
+                    <span class="def">了解无产阶级运动的条件、进程和一般结果，比其余群众优越。</span>
+                </div>
+                <div class="concept-card">
+                    <span class="term">最近目的</span>
+                    <span class="def">使无产阶级形成为阶级，推翻资产阶级统治，由无产阶级夺取政权。</span>
+                </div>
+            </div>
+
+            <!-- 2.2 -->
+            <h3 id="sec-two-2">2.2 消灭私有制</h3>
+            <p>
+                共产党人的理论可以概括为一句话：<strong>消灭私有制</strong>。
+                现代资产阶级私有制是建筑在阶级对立和剥削之上的最后而又最完备的表现。
+            </p>
+            <div class="quote-block">
+                「共产主义并不剥夺任何人占有社会产品的权力，它只剥夺利用这种占有去奴役他人劳动的权力。」
+                <span class="source">——《共产党宣言》</span>
+            </div>
+            <p>
+                资本是<strong>集体的产物</strong>，是一种社会力量。把资本变为公共财产，并不是消灭个人财产，
+                而是改变财产的<strong>阶级性质</strong>。雇佣劳动创造的是资本，而资本又反过来奴役劳动。
+                共产主义要消灭的正是这种<strong>过去支配现在</strong>的关系，让「现在支配过去」。
+            </p>
+
+            <!-- 2.3 -->
+            <h3 id="sec-two-3">2.3 驳资产阶级责难</h3>
+            <p>
+                宣言以论战形式回应了资产阶级对共产主义的种种责难，每一处反驳都直指资本主义制度的虚伪性。
+            </p>
+
+            <div class="two-col">
+                <div class="col">
+                    <h5>🧾 责难一：消灭个性与自由</h5>
+                    <p>
+                        资产阶级所谓「个性」不过是资产者的个性。共产主义要消灭的正是这种以剥削为基础的个性。
+                        在资本主义下，只有资本有独立性，工人没有。共产主义要让个人重新获得真正的独立性。
+                    </p>
+                </div>
+                <div class="col">
+                    <h5>🧾 责难二：消灭家庭</h5>
+                    <p>
+                        资产阶级的家庭建立在资本和私人发财之上。无产者的家庭关系已被大工业破坏。
+                        共产主义要消灭的只是「父母对子女的剥削」以及作为生产工具的妇女地位，
+                        而不是真正的家庭情感。
+                    </p>
+                </div>
+                <div class="col">
+                    <h5>🧾 责难三：取消祖国</h5>
+                    <p>
+                        「工人没有祖国。」无产阶级首先必须取得政治统治，上升为民族的阶级。
+                        但随着资产阶级的发展，民族隔绝和对立日益消失。无产阶级统治将加速这一过程。
+                    </p>
+                </div>
+                <div class="col">
+                    <h5>🧾 责难四：消灭永恒真理</h5>
+                    <p>
+                        各个时代的意识形态都是阶级利益的反映。随着阶级对立的消失，一切旧观念也将消失。
+                        共产主义革命不仅要同传统所有制决裂，还要同传统观念彻底决裂。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2.4 -->
+            <h3 id="sec-two-4">2.4 革命措施与远景</h3>
+            <p>
+                工人革命的第一步是使无产阶级上升为统治阶级，争得民主。
+                然后利用政治统治，逐步夺取资产阶级全部资本，把生产工具集中在国家手中，<strong>尽可能快地增加生产力总量</strong>。
+            </p>
+
+            <p><strong>最先进国家可采取的十项措施：</strong></p>
+            <ol class="measure-list">
+                <li>剥夺地产，把地租用于国家支出</li>
+                <li>征收高额累进税</li>
+                <li>废除继承权</li>
+                <li>没收一切流亡分子和叛乱分子的财产</li>
+                <li>通过国家银行把信贷集中在国家手里</li>
+                <li>把全部运输业集中在国家手里</li>
+                <li>增加国营工厂和生产工具，按计划开垦荒地</li>
+                <li>实行普遍劳动义务制，成立产业军</li>
+                <li>把农业和工业结合起来，消灭城乡对立</li>
+                <li>对一切儿童实行公共免费教育，取消童工，教育同生产结合</li>
+            </ol>
+
+            <div class="highlight-box">
+                <strong>🏛️ 远景：</strong>
+                当阶级差别消失，全部生产集中在联合起来的个人手中，公众的权力就失去政治性质。
+                政治权力原来是一个阶级用以压迫另一个阶级的有组织的暴力。
+                无产阶级消灭旧生产关系的同时，也就<strong>消灭了阶级对立和阶级本身的存在条件</strong>，
+                从而<strong>消灭了它自己这个阶级的统治</strong>。
+                —— 最终，<strong>「代替那存在着阶级和阶级对立的资产阶级旧社会的，将是这样一个联合体，在那里，每个人的自由发展是一切人的自由发展的条件。」</strong>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 结语 -->
+        <!-- ============================================================ -->
+        <section class="section" id="sec-conclusion">
+            <span class="section-number">结语</span>
+            <h2>思想的当代意义</h2>
+            <div class="two-col" style="margin-top:0;">
+                <div class="col" style="background:#f8f6f2;">
+                    <h5>📌 理论贡献</h5>
+                    <ul>
+                        <li>系统阐述了<strong>唯物史观</strong>，将历史发展建立在物质生产基础上</li>
+                        <li>揭示了<strong>阶级斗争</strong>是历史发展的直接动力</li>
+                        <li>提出了<strong>资本主义内在矛盾</strong>（生产社会化与私有制）</li>
+                        <li>指明了<strong>无产阶级的历史使命</strong>：消灭阶级，解放全人类</li>
+                    </ul>
+                </div>
+                <div class="col" style="background:#f8f6f2;">
+                    <h5>🌍 当代回响</h5>
+                    <ul>
+                        <li>全球化、金融化、数字资本主义 — 资本逻辑仍在全球扩张</li>
+                        <li>贫富分化、劳动异化、生态危机 — 私有制与生产力的冲突依旧尖锐</li>
+                        <li>「两个必然」的论断在21世纪仍具批判性启示</li>
+                        <li>共产党人的理想：<strong>每个人的自由发展是一切人的自由发展的条件</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quote-block" style="border-left-color:#a93226; background:#fdf6f3;">
+                「让统治阶级在共产主义革命面前发抖吧。无产者在这个革命中失去的只是锁链。他们获得的将是整个世界。」
+                <span class="source">——《共产党宣言》</span>
+            </div>
+
+            <div style="margin-top:28px; text-align:right; color:#5d6d7e; font-size:0.95rem; border-top:1px solid #e0d8cf; padding-top:20px;">
+                报告基于《共产党宣言》原文（1848年） · 知识体系整理 · 2026年
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- 页脚 -->
+        <!-- ============================================================ -->
+        <div class="conclusion">
+            <p style="font-size:1.4rem; font-weight:300; letter-spacing:2px; color:#1a1a1a;">
+                「全世界的无产者，联合起来！」
+            </p>
+            <div class="sign">
+                — <em>Karl Marx &amp; Friedrich Engels</em> · 伦敦 · 1848年2月
+            </div>
+        </div>
+
+    </div>
+    <!-- /report-container -->
+
+</body>
+</html>

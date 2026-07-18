@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天记录转微信样式HTML生成器</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            padding: 24px;
+            font-family: "Microsoft YaHei", Consolas, monospace;
+            background: #f7fbff;
+            background-image: radial-gradient(circle at 10% 20%, rgba(64, 158, 255, 0.08) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(103, 194, 58, 0.06) 0%, transparent 40%);
+            color: #303133;
+            min-height: 100vh;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 26px;
+            background: linear-gradient(90deg, #409EFF, #67C23A);
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 440px 1fr;
+            gap: 24px;
+        }
+        .panel {
+            background: #ffffff;
+            border: 1px solid rgba(64, 158, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(64, 158, 255, 0.08);
+        }
+        .panel h3 {
+            margin-bottom: 16px;
+            color: #409EFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .panel h3::before {
+            content: "//";
+            color: #67C23A;
+        }
+        textarea {
+            width: 100%;
+            height: 290px;
+            padding: 12px;
+            background: #fafafa;
+            border: 1px solid rgba(64, 158, 255, 0.3);
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            color: #303133;
+            outline: none;
+            transition: border 0.25s ease, box-shadow 0.25s ease;
+        }
+        textarea:focus {
+            border-color: #409EFF;
+            box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.15);
+        }
+        .control-row {
+            margin: 14px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        .input-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        label {
+            color: #606266;
+            white-space: nowrap;
+        }
+        select, input[type="text"] {
+            padding: 9px 12px;
+            font-size: 14px;
+            border-radius: 6px;
+            background: #fafafa;
+            border: 1px solid rgba(64, 158, 255, 0.35);
+            color: #303133;
+            outline: none;
+        }
+        select:focus, input[type="text"]:focus {
+            border-color: #409EFF;
+        }
+        button {
+            padding: 10px 18px;
+            font-size: 14px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            font-weight: 500;
+        }
+        #parseBtn {
+            background: linear-gradient(135deg, #409EFF, #2979cc);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(64, 158, 255, 0.25);
+        }
+        #parseBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(64, 158, 255, 0.35);
+        }
+        #downloadBtn {
+            background: linear-gradient(135deg, #67C23A, #529b2e);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(103, 194, 58, 0.25);
+            display: none;
+        }
+        #downloadBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(103, 194, 58, 0.35);
+        }
+        /* 预览聊天区域 */
+        .chat-preview-wrap {
+            background-color: #f5f5f5;
+            padding: 18px;
+            max-height: 86vh;
+            overflow-y: auto;
+            border-radius: 8px;
+        }
+        .msg-item {
+            margin: 14px 0;
+            display: flex;
+            width: 100%;
+        }
+        .left {
+            justify-content: flex-start;
+        }
+        .right {
+            justify-content: flex-end;
+        }
+        .msg-wrap {
+            display: flex;
+            flex-direction: column;
+            max-width: 72%; /* 气泡最大宽度，可自行修改百分比 */
+        }
+        .sender-name {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .bubble {
+            padding: 9px 13px;
+            border-radius: 7px;
+            line-height: 1.55;
+            font-size: 15px;
+            /* 移除了强制拆行word-break: break-all; */
+        }
+        .left .bubble {
+            background: #e9e9eb;
+        }
+        .right .bubble {
+            background: #95ec69;
+        }
+        .empty-tip {
+            color: #909399;
+            padding: 40px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div style="margin:16px auto 0;max-width:960px;width:calc(100% - 48px);">
+  <a href="/tools.html" style="
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color:#2b7def;
+    font-size:14px;
+    text-decoration:none;
+    padding:6px 14px;
+    background:rgba(43,125,239,0.08);
+    border-radius:40px;
+    border:1px solid rgba(43,125,239,0.15);
+    transition:0.2s ease;
+  " onmouseover="this.style.background='rgba(43,125,239,0.15)'" onmouseout="this.style.background='rgba(43,125,239,0.08)'">
+    ← 返回工具首页
+  </a>
+</div>
+
+
+
+    <h1 class="page-title">聊天记录 · HTML存档生成工具</h1>
+    <div class="container">
+        <!-- 左侧操作面板 -->
+        <div class="panel">
+            <h3>聊天文本输入区</h3>
+            <textarea id="chatInput" placeholder="粘贴格式示例：
+用户名1: 消息内容
+用户名2: 回复内容
+松香接地走: 你好！
+天道酬勤: 很高兴和你聊天！"></textarea>
+
+            <div class="control-row">
+                <button id="parseBtn">解析提取发言人</button>
+                <select id="userSelect" style="display:none;"></select>
+            </div>
+
+            <div class="control-row">
+                <div class="input-item">
+                    <label>自定义导出文件名：</label>
+                    <input type="text" id="fileNameInput" value="微信聊天记录存档" placeholder="不用带.html后缀">
+                </div>
+            </div>
+
+            <div class="control-row">
+                <button id="downloadBtn">下载HTML存档文件</button>
+            </div>
+        </div>
+
+        <!-- 右侧实时预览 -->
+        <div class="panel">
+            <h3>实时预览窗口（本人自动居右绿色气泡）</h3>
+            <div id="previewBox" class="chat-preview-wrap">
+                <div class="empty-tip">粘贴聊天内容并点解析，即可实时预览效果</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+const chatInput = document.getElementById('chatInput');
+const parseBtn = document.getElementById('parseBtn');
+const userSelect = document.getElementById('userSelect');
+const downloadBtn = document.getElementById('downloadBtn');
+const previewBox = document.getElementById('previewBox');
+const fileNameInput = document.getElementById('fileNameInput');
+
+let chatMsgList = [];
+let userList = [];
+let finalHtmlCode = "";
+
+// 解析聊天文本
+parseBtn.onclick = ()=>{
+    const text = chatInput.value.trim();
+    if(!text){
+        alert("请先粘贴聊天记录内容！");
+        return;
+    }
+    chatMsgList = [];
+    const userSet = new Set();
+    const lines = text.split("\n");
+
+    for(let line of lines){
+        line = line.trim();
+        if(!line || !line.includes(":")) continue;
+        const splitIdx = line.indexOf(":");
+        const name = line.slice(0,splitIdx).trim();
+        const content = line.slice(splitIdx+1).trim();
+        chatMsgList.push({name,content});
+        userSet.add(name);
+    }
+    userList = Array.from(userSet);
+
+    // 填充下拉选择框
+    userSelect.innerHTML = "";
+    userList.forEach((u,idx)=>{
+        const opt = document.createElement("option");
+        opt.value = idx;
+        opt.textContent = u;
+        userSelect.appendChild(opt);
+    })
+    userSelect.style.display = "inline-block";
+    downloadBtn.style.display = "inline-block";
+
+    // 切换选择人刷新预览
+    userSelect.onchange = renderPreview;
+    renderPreview();
+}
+
+// 渲染预览 + 组装完整HTML源码
+function renderPreview(){
+    const myIdx = parseInt(userSelect.value);
+    const myName = userList[myIdx];
+
+    let previewHtml = "";
+    let msgBodyHtml = "";
+    chatMsgList.forEach(item=>{
+        const align = item.name === myName ? "right" : "left";
+        const domPart = `
+        <div class="msg-item ${align}">
+            <div class="msg-wrap">
+                <div class="sender-name">${item.name}</div>
+                <div class="bubble">${item.content}</div>
+            </div>
+        </div>`;
+        previewHtml += domPart;
+        msgBodyHtml += domPart;
+    })
+    previewBox.innerHTML = previewHtml;
+
+    // 完整可独立运行HTML模板（同步删掉拆行样式）
+    finalHtmlCode = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信聊天记录存档</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: "Microsoft Yahei", sans-serif;
+            max-width: 720px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .msg-item {
+            margin: 14px 0;
+            display: flex;
+            width:100%;
+        }
+        .left {
+            justify-content: flex-start;
+        }
+        .right {
+            justify-content: flex-end;
+        }
+        .msg-wrap {
+            display:flex;
+            flex-direction:column;
+            max-width:72%;
+        }
+        .sender-name {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .bubble {
+            padding: 9px 13px;
+            border-radius: 7px;
+            line-height: 1.55;
+            font-size: 15px;
+        }
+        .left .bubble {
+            background: #e9e9eb;
+        }
+        .right .bubble {
+            background: #95ec69;
+        }
+    </style>
+</head>
+<body>
+${msgBodyHtml}
+</body>
+</html>`;
+}
+
+// 自定义文件名下载
+downloadBtn.onclick = ()=>{
+    let saveName = fileNameInput.value.trim();
+    if(!saveName) saveName = "微信聊天记录存档";
+    // 自动补后缀，防止用户手动加重复
+    if(!saveName.endsWith(".html")) saveName += ".html";
+
+    const blob = new Blob([finalHtmlCode], {type:"text/html;charset=utf-8"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = saveName;
+    a.click();
+}
+</script>
+</body>
+</html>
